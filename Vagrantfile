@@ -11,10 +11,17 @@ Vagrant.configure("2") do |config|
     an.vm.box = "generic/debian10"
     an.vm.network "private_network", ip: "192.168.11.100"
     an.vm.hostname = "control"
+    an.vm.synced_folder ".keys/", "/mnt/keys"
     an.vm.provider "libvirt" do |lv|
       lv.memory = 2048
       lv.cpus = 2
     end
+    an.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get -y install ansible mc git
+    useradd -G sudo -s /bin/bash --create-home ansible
+
+    SHELL
   end
 
   (1..3).each do |i|
@@ -26,6 +33,12 @@ Vagrant.configure("2") do |config|
         lv.memory = 2048
         lv.cpus = 2
       end
+      node.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get -y install mc git
+      useradd -G sudo -s /bin/bash --create-home ansible
+  
+      SHELL
     end
   end 
 
