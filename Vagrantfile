@@ -20,6 +20,8 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get -y install ansible mc git
     useradd -G sudo -s /bin/bash --create-home ansible
+    sudo -u ansible ssh-keygen -q -t rsa -N '' -f /home/ansible/.ssh/id_rsa <<<y 2>&1 >/dev/null
+    cp /home/ansible/.ssh/id_rsa.pub /mnt/keys/control.pub
 
     SHELL
   end
