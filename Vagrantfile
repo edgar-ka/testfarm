@@ -31,7 +31,8 @@ Vagrant.configure("2") do |config|
     chmod 0400 /home/ansible/.ssh/authorized_keys
     cp -f /home/ansible/.ssh/id_rsa.pub /mnt/keys/control.pub
     echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
-
+    echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
+    
     SHELL
   end
 
@@ -58,6 +59,7 @@ Vagrant.configure("2") do |config|
       chown ansible:ansible /home/ansible/.ssh/authorized_keys
       chmod 0400 /home/ansible/.ssh/authorized_keys
       echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+      echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
       
       SHELL
     end
