@@ -32,6 +32,12 @@ Vagrant.configure("2") do |config|
     cp -f /home/ansible/.ssh/id_rsa.pub /mnt/keys/control.pub
     echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
     echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
+
+    echo "127.0.0.1 localhost\n192.168.11.100 control\n" > /etc/hosts
+    for h in {1..3}
+      do
+        echo "192.168.11.10$h node$h" >> /etc/hosts
+      done
     
     SHELL
   end
@@ -61,6 +67,12 @@ Vagrant.configure("2") do |config|
       echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
       echo "ansible        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/ansible
       
+      echo "127.0.0.1 localhost\n192.168.11.100 control\n" > /etc/hosts
+      for h in {1..3}
+        do
+          echo "192.168.11.10$h node$h" >> /etc/hosts
+        done
+
       SHELL
     end
   end 
