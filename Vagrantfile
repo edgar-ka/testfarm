@@ -18,6 +18,10 @@ Vagrant.configure("2") do |config|
       lv.memory = 2048
       lv.cpus = 2
     end
+    an.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048
+      vb.cpus = 2
+    end
     an.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get -y install ansible mc git
@@ -50,6 +54,10 @@ Vagrant.configure("2") do |config|
       node.vm.provider "libvirt" do |lv|
         lv.memory = 2048
         lv.cpus = 2
+      end
+      node.vm.provider "virtualbox" do |vb|
+        vb.memory = 2048
+        vb.cpus = 2
       end
       node.vm.provision "shell", inline: <<-SHELL
       apt-get update
